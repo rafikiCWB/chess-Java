@@ -1,15 +1,13 @@
 package application;
 
-import boardgame.Board;
-import boardgame.Position;
-
-import javax.swing.*;
-
+import application.UI.UI;
+import chess.ChessMatch;
 
 public class Program {
     public static void main(String[] args) {
 
-        var board = new Board(8,8);
+        var chessMatch = new ChessMatch();
+        UI.printBoard(chessMatch.getPieces());
 
 
 
