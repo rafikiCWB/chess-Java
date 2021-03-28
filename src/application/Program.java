@@ -3,14 +3,18 @@ package application;
 import application.UI.UI;
 import chess.ChessMatch;
 
+import java.io.IOException;
+
 public class Program {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, InterruptedException {
 
         var chessMatch = new ChessMatch();
         UI.printBoard(chessMatch.getPieces());
 
-
-
+       // Runtime.getRuntime().exec("");
+      /*  new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        System.out.println("\033[H\033[2J]");
+        System.out.flush();*/
 /* String nome;
  nome = JOptionPane.showInputDialog(null, "Por favor, digite seu nome", "Atenção",
          JOptionPane.WARNING_MESSAGE);
