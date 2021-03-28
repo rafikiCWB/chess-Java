@@ -2,7 +2,7 @@ package chess;
 
 import boardgame.Board;
 import chess.pieces.King;
-import chess.pieces.Rock;
+import chess.pieces.Rook;
 
 //Coração do meu jogo de xadrex, pois é onde ficará as regras do jogo;
 public class ChessMatch { // Partida de xadrez
@@ -30,9 +30,14 @@ public class ChessMatch { // Partida de xadrez
     }
 
     private void initialSetup() {
-        placeNewPiece('a', 6, new Rock(board, Color.WHITE));
-        placeNewPiece('e', 8, new King(board, Color.BLACK));
+        placeNewPiece('a', 1, new Rook(board, Color.WHITE));
         placeNewPiece('e', 1, new King(board, Color.WHITE));
+        placeNewPiece('h', 1, new Rook(board, Color.WHITE));
+        placeNewPiece('a', 8, new Rook(board, Color.BLACK));
+        placeNewPiece('e', 8, new King(board, Color.BLACK));
+        placeNewPiece('h', 8, new Rook(board, Color.BLACK));
+
+
     }
 
 }
