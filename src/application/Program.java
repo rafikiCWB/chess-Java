@@ -2,16 +2,33 @@ package application;
 
 import application.UI.UI;
 import chess.ChessMatch;
+import chess.ChessPiece;
+import chess.ChessPosition;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Program {
     public static void main(String[] args) throws IOException, InterruptedException {
 
+        var sc = new Scanner(System.in);
         var chessMatch = new ChessMatch();
-        UI.printBoard(chessMatch.getPieces());
 
-       // Runtime.getRuntime().exec("");
+        while (true) {
+            UI.printBoard(chessMatch.getPieces());
+            System.out.println();
+            System.out.println("Source: ");
+            ChessPosition source = UI.readChessPosition(sc); //Posição de origem
+
+            System.out.println();
+            System.out.println("Target: ");
+            ChessPosition target = UI.readChessPosition(sc);
+
+            ChessPiece capturedPiece = chessMatch.performChessMove(source,target);
+        }
+
+
+        // Runtime.getRuntime().exec("");
       /*  new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
         System.out.println("\033[H\033[2J]");
         System.out.flush();*/

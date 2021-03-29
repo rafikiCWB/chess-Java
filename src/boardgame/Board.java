@@ -40,11 +40,25 @@ public class Board { //tabuleiro
     }
 
     public void placePiece(Piece piece, Position position) {
-        if(thereIsAPiece(position)){
+        if (thereIsAPiece(position)) {
             throw new BoardException("There is already a piece on possition " + position);
         }
         pieces[position.getRow()][position.getColumn()] = piece;
         piece.position = position;
+    }
+
+    //metodo para remover uma peça do board
+    public Piece removePiece(Position position) {
+        if (!positionExists(position)) {
+            throw new BoardException("Position not on the board");
+        }
+        if (piece(position) == null) {
+            return null;
+        }
+        Piece aux = piece(position);
+        aux.position = null;
+        pieces[(position.getRow())][position.getColumn()] = null;
+        return aux;
     }
 
     // metodo aux do metodo PossitionExists ->
@@ -56,7 +70,8 @@ public class Board { //tabuleiro
     public boolean positionExists(Position position) {
         return positionExists(position.getRow(), position.getColumn());
     }
-                   //há uma peça. Metodo que testa se ha position existe
+    //há uma peça. Metodo que testa se ha position existe
+
     public boolean thereIsAPiece(Position position) {
         if (!positionExists(position)) {
             throw new BoardException("Possition not on the board");
