@@ -31,23 +31,31 @@ public class ChessMatch { // Partida de xadrez
         Position source = sourcePosition.toPosition();
         Position target = targetPosition.toPosition();
         validateSourcePosition(source);
-        Piece capturePiece = makeMove(source,target);
+        validateTargetPosition(source, target);
+        Piece capturePiece = makeMove(source, target);
         return (ChessPiece) capturePiece;
     }
 
-    private Piece makeMove(Position source, Position target){
+    private Piece makeMove(Position source, Position target) {
         Piece p = board.removePiece(source); //source == origem
         Piece capturedPiece = board.removePiece(target); //source == origem
-        board.placePiece(p,target);
+        board.placePiece(p, target);
         return capturedPiece;
     }
 
-    private void validateSourcePosition(Position position){
-        if(!board.thereIsAPiece(position)){
+    private void validateSourcePosition(Position position) {
+        if (!board.thereIsAPiece(position)) {
             throw new ChessException("There is no piece on source position");
         }
-        if(!board.piece(position).isThereAnyPossibleMove()){
+        if (!board.piece(position).isThereAnyPossibleMove()) {
             throw new ChessException("There is no possible moves for the chosen piece");
+        }
+    }
+                                                //Origem         //Destino
+    private void validateTargetPosition(Position source, Position target){
+        if(!board.piece(source).possibleMovie(target)){
+         throw new ChessException("The chosen piece can't move to target possition");
+
         }
     }
 
