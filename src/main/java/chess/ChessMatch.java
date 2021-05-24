@@ -10,11 +10,23 @@ import chess.pieces.Rook;
 public class ChessMatch { // Partida de xadrez
     //declarado o tabuleiro
     private final Board board;
+    private int turn;
+    private Color currentPlayer;
 
     //Dimenção do tabuleiro de xadrez;
     public ChessMatch() {
         board = new Board(8, 8);
+        turn = 1;
+        currentPlayer = Color.WHITE;
         initialSetup();
+    }
+
+    public int getTurn() {
+        return turn;
+    }
+
+    public Color getCurrentPlayer() {
+        return currentPlayer;
     }
 
     public ChessPiece[][] getPieces() {
@@ -27,7 +39,7 @@ public class ChessMatch { // Partida de xadrez
         return mat;
     }
 
-    public boolean[][] possibleMoves(ChessPosition sourcePosition){
+    public boolean[][] possibleMoves(ChessPosition sourcePosition) {
         Position position = sourcePosition.toPosition();//converte essa posição de xadrez para uma posição de matrix normal;
         validateSourcePosition(position);//validação da posição de origem
         return board.piece(position).possiblesMoves();//return movimentos posiveis da peça dessa posição
@@ -39,6 +51,7 @@ public class ChessMatch { // Partida de xadrez
         validateSourcePosition(source);
         validateTargetPosition(source, target);
         Piece capturePiece = makeMove(source, target);
+        nextTurn();
         return (ChessPiece) capturePiece;
     }
 
@@ -53,16 +66,25 @@ public class ChessMatch { // Partida de xadrez
         if (!board.thereIsAPiece(position)) {
             throw new ChessException("There is no piece on source position");
         }
+        if (currentPlayer != ((ChessPiece) board.piece(position)).getColor()) {
+            throw new ChessException("The chosen piece is not yours");
+        }
         if (!board.piece(position).isThereAnyPossibleMove()) {
             throw new ChessException("There is no possible moves for the chosen piece");
         }
     }
-                                                //Origem         //Destino
-    private void validateTargetPosition(Position source, Position target){
-        if(!board.piece(source).possibleMovie(target)){
-         throw new ChessException("The chosen piece can't move to target possition");
+
+    //Origem         //Destino
+    private void validateTargetPosition(Position source, Position target) {
+        if (!board.piece(source).possibleMovie(target)) {
+            throw new ChessException("The chosen piece can't move to target possition");
 
         }
+    }
+
+    private void nextTurn() {
+        turn++;
+        currentPlayer = Color.BLACK;
     }
 
     private void placeNewPiece(char column, int row, ChessPiece piece) {
